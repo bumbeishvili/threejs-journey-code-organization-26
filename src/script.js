@@ -11,8 +11,7 @@ const parameters = {
     materialColor: '#ffeded'
 }
 
-gui
-    .addColor(parameters, 'materialColor')
+
 
 /**
  * Base
@@ -26,11 +25,56 @@ const scene = new THREE.Scene()
 /**
  * Test cube
  */
-const cube = new THREE.Mesh(
-    new THREE.BoxGeometry(1, 1, 1),
-    new THREE.MeshBasicMaterial({ color: '#ff0000' })
+
+const directionalLight = new THREE.DirectionalLight(0xffffff, 1)
+directionalLight.position.set(1, 1, 0)
+scene.add(directionalLight);
+
+
+
+
+// Material
+const textureLoader = new THREE.TextureLoader()
+
+const gradientTexture = textureLoader.load('textures/gradients/5.jpg')
+const material = new THREE.MeshToonMaterial({ color: parameters.materialColor })
+material.gradientMap = gradientTexture;
+gradientTexture.mipmap = false;
+gradientTexture.minFilter = THREE.NearestFilter;
+gradientTexture.magFilter = THREE.NearestFilter;
+
+
+
+
+
+// Meshes
+const mesh1 = new THREE.Mesh(
+    new THREE.TorusGeometry(1, 0.4, 16, 100,),
+    material
 )
-scene.add(cube)
+
+const mesh2 = new THREE.Mesh(
+    new THREE.ConeGeometry(1, 2, 32),
+    material
+)
+
+const mesh3 = new THREE.Mesh(
+    new THREE.TorusKnotGeometry(0.8, 0.35, 100, 16),
+    material
+)
+
+const sectionMeshes = [mesh1, mesh2, mesh3]
+
+const objDistance = 4;
+mesh1.position.y = -objDistance * 0;
+mesh2.position.y = -objDistance * 1;
+mesh3.position.y = -objDistance * 2;
+
+mesh1.position.x = 2
+mesh2.position.x = -2
+mesh3.position.x = 2;
+
+scene.add(mesh1, mesh2, mesh3)
 
 /**
  * Sizes
@@ -40,8 +84,7 @@ const sizes = {
     height: window.innerHeight
 }
 
-window.addEventListener('resize', () =>
-{
+window.addEventListener('resize', () => {
     // Update sizes
     sizes.width = window.innerWidth
     sizes.height = window.innerHeight
@@ -67,19 +110,47 @@ scene.add(camera)
  * Renderer
  */
 const renderer = new THREE.WebGLRenderer({
-    canvas: canvas
+    canvas: canvas,
+    alpha: true
 })
 renderer.setSize(sizes.width, sizes.height)
 renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2))
+
+let scrollY = window.scrollY;
+window.addEventListener('scroll', () => {
+    scrollY = window.scrollY;
+    console.log({ scrollY })
+})
+
+const cursor = {
+    x: 0,
+    y: 0
+};
+
+window.addEventListener('mousemove', event => {
+    cursor.x = event.clientX / sizes.width-0.5;
+    cursor.y = -event.clientY / sizes.height+0.5;
+    console.log(cursor)
+})
+
 
 /**
  * Animate
  */
 const clock = new THREE.Clock()
 
-const tick = () =>
-{
+const tick = () => {
     const elapsedTime = clock.getElapsedTime()
+
+    sectionMeshes.forEach((mesh, index) => {
+        mesh.rotation.y = elapsedTime * 0.1;
+        mesh.rotation.x = elapsedTime * 0.12;
+    })
+
+
+    camera.position.y = -scrollY / sizes.height * objDistance;
+    camera.position.x = cursor.x/4;
+    
 
     // Render
     renderer.render(scene, camera)
@@ -89,3 +160,11 @@ const tick = () =>
 }
 
 tick()
+
+
+gui
+    .addColor(parameters, 'materialColor')
+    .onChange(() => {
+        material.color.set(parameters.materialColor)
+    })
+
