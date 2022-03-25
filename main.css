@@ -1,13 +1,10 @@
-
-
-*
-{
+* {
     margin: 0;
     padding: 0;
 }
 
-html{
-    background-color:#1e1a20;
+html {
+    background-color: #1e1a20;
 }
 
 /* html,
@@ -16,8 +13,7 @@ body
     overflow: hidden;
 } */
 
-.webgl
-{
+.webgl {
     position: fixed;
     top: 0;
     left: 0;
@@ -25,8 +21,7 @@ body
 }
 
 
-.section
-{
+.section {
     display: flex;
     align-items: center;
     height: 100vh;
@@ -39,9 +34,29 @@ body
     padding-right: 10%;
 }
 
-section:nth-child(odd)
-{
+section:nth-child(odd) {
     justify-content: flex-end;
+}
+
+/* width */
+::-webkit-scrollbar {
+    width: 10px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+    background-color: rgba(1, 1, 1, 0);
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+    background: black;
+    border-radius: 5px;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+    background: #555;
 }
 
 /*# sourceMappingURL=main.css.map*/
