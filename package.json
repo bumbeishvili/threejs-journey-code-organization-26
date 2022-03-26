@@ -1,7 +1,7 @@
 {
   "repository": "#",
   "license": "UNLICENSED",
-  "homepage": "https://bumbeishvili.github.io/threejs-journey-scroll-animation-21",
+  "homepage": "https://bumbeishvili.github.io/threejs-journey-physics-22",
   "scripts": {
     "build": "webpack --config ./bundler/webpack.prod.js",
     "dev": "webpack serve --config ./bundler/webpack.dev.js",
@@ -12,6 +12,7 @@
     "@babel/core": "^7.16.12",
     "@babel/preset-env": "^7.16.11",
     "babel-loader": "^8.2.3",
+    "cannon": "^0.6.2",
     "clean-webpack-plugin": "^4.0.0",
     "copy-webpack-plugin": "^10.2.4",
     "css-loader": "^6.5.1",
