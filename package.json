@@ -1,7 +1,7 @@
 {
   "repository": "#",
   "license": "UNLICENSED",
-  "homepage": "https://bumbeishvili.github.io/threejs-journey-physics-22",
+  "homepage": "https://bumbeishvili.github.io/threejs-journey-code-organization-26",
   "scripts": {
     "build": "webpack --config ./bundler/webpack.prod.js",
     "dev": "webpack serve --config ./bundler/webpack.dev.js",
