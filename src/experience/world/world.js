@@ -7,7 +7,7 @@ import Fox from './fox';
 
 export default class World {
     constructor() {
-        console.log('INI - world init')
+        console.log('INI - world init',arguments)
         this.experience = new Experience();
         this.scene = this.experience.scene;
         this.resources = this.experience.resources;
@@ -21,5 +21,11 @@ export default class World {
             this.fox = new Fox()
             this.environment = new Environment();
         })
+    }
+
+    update() {
+        if (this.fox) {
+            this.fox.update();
+        }
     }
 }

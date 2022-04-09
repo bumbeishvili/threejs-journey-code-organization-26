@@ -6,10 +6,32 @@ export default class Environment {
         this.experience = new Experience();
         this.scene = this.experience.scene;
         this.resources = this.experience.resources;
+        this.debug = this.experience.debug;
+
+
 
         // Setup
         this.setupLight()
         this.setupEnvironmentMap();
+
+
+        this.setupDebug();
+    }
+
+    setupDebug() {
+        if (this.debug.active) {
+            this.debugFolder = this.debug.ui.addFolder('environment');
+            this.debugFolder.add(this.environmentMap, 'intensity', 0, 1).onChange(() => {
+                this.environmentMap.updateMaterial();
+            })
+            .name('env intensity')
+
+            this.debugFolder.add(this.light, 'intensity', 0, 10).name('light intensity')
+            this.debugFolder.add(this.light.position, 'x', -5, 5).name('light x')
+            this.debugFolder.add(this.light.position, 'y', -5, 5).name('light y')
+            this.debugFolder.add(this.light.position, 'z', -5, 5).name('light z')
+
+        }
     }
 
     setupLight() {

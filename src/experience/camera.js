@@ -24,7 +24,7 @@ export default class Camera {
     }
 
     resize() {
-        console.log('camera resize', this.sizes)
+        console.log('SIZ - camera resize', this.sizes)
         this.instance.aspect = this.sizes.width / this.sizes.height;
         this.instance.updateProjectionMatrix();
     }
